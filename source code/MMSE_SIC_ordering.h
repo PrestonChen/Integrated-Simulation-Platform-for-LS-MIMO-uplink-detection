@@ -52,14 +52,14 @@ void MMSE_SIC_ordering(gsl_vector_complex *preceived, gsl_matrix_complex *pH, do
    int count, count1, count2;
    int index;
 //   double temp;
-   for (count = 0;count<Nt;count++){
-	   G_pre = gsl_matrix_complex_calloc(Nt-count, Nt-count);
-	   G_preInv = gsl_matrix_complex_calloc(Nt-count, Nt-count);
+   for (count = 0; count < Nt; count++){
+	   G_pre = gsl_matrix_complex_calloc(Nt-count, Nt - count);
+	   G_preInv = gsl_matrix_complex_calloc(Nt-count, Nt - count);
 	   gsl_matrix_complex_set_identity(G_pre);
-	   p = gsl_permutation_calloc(Nt-count);
-	   diag = gsl_vector_calloc(Nt-count);
-	   row = gsl_vector_complex_calloc(Nt-count);
-	   row_M = gsl_matrix_complex_calloc(1, Nt-count);
+	   p = gsl_permutation_calloc(Nt - count);
+	   diag = gsl_vector_calloc(Nt - count);
+	   row = gsl_vector_complex_calloc(Nt - count);
+	   row_M = gsl_matrix_complex_calloc(1, Nt - count);
 	   gsl_blas_zgemm(CblasConjTrans, CblasNoTrans, alpha, pH_inter,
 			   pH_inter, beta1, G_pre);
 	   gsl_linalg_complex_LU_decomp(G_pre, p, signum);
@@ -91,13 +91,13 @@ void MMSE_SIC_ordering(gsl_vector_complex *preceived, gsl_matrix_complex *pH, do
  	   gsl_matrix_complex_free(Gequal);
  	   gsl_vector_complex_free(psymOut_tmp);
  	   Gequal = gsl_matrix_complex_calloc(Nt-count, Nr);
- 	   psymOut_tmp = gsl_vector_complex_calloc(Nt-count);
+ 	   psymOut_tmp = gsl_vector_complex_calloc(Nt - count);
        gsl_blas_zgemm(CblasNoTrans, CblasConjTrans, alpha, G_preInv, pH_inter, beta2, Gequal);
        gsl_blas_zgemv(CblasNoTrans, alpha, Gequal, preceive_tmp, beta2, psymOut_tmp);
-	   for (count1 = 0;count1<(Nt-count);count1++){
+	   for (count1 = 0;count1 < (Nt - count); count1++){
 		   psymOut_tmpEle = gsl_vector_complex_get(psymOut_tmp, count1);
 		   diag_tmp = (fabs(GSL_REAL(psymOut_tmpEle))+fabs(GSL_IMAG(psymOut_tmpEle)))
-				   /(gsl_vector_get(diag, count1));
+				   / (gsl_vector_get(diag, count1));
 		   gsl_vector_set(diag, count1, diag_tmp);
 	   }
        //the current index of the data stream with the largest reliability
@@ -124,10 +124,10 @@ void MMSE_SIC_ordering(gsl_vector_complex *preceived, gsl_matrix_complex *pH, do
 		   gsl_matrix_complex_free(row_M);
 		   break;
 	   }
-	   pHtemp = gsl_matrix_complex_calloc(Nr, Nt-count-1);
+	   pHtemp = gsl_matrix_complex_calloc(Nr, Nt - count - 1);
 		count2 = 0;
-		for (count1 = 0; count1 < (Nt-count); count1++){
-		  if (count1 =  = k){
+		for (count1 = 0; count1 < (Nt - count); count1++){
+		  if (count1 == k){
 			  continue;
 		  }
 		  gsl_matrix_complex_get_col(colReserve, pH_inter, count1);
@@ -144,9 +144,6 @@ void MMSE_SIC_ordering(gsl_vector_complex *preceived, gsl_matrix_complex *pH, do
 	   gsl_vector_free(diag);
 	   gsl_vector_complex_free(row);
 	   gsl_matrix_complex_free(row_M);
-
-
-
    }
    free(head);
    gsl_vector_complex_free(preceive_tmp);
@@ -162,6 +159,4 @@ void MMSE_SIC_ordering(gsl_vector_complex *preceived, gsl_matrix_complex *pH, do
 #endif
 	return;
 }
-
-
 #endif /* MMSE_SIC_ORDERING_H_ */
