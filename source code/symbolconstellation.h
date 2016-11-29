@@ -16,11 +16,9 @@ void symbolconstellation(gsl_vector_complex *psymbolconstellation, double pav) {
 	 We set Es=1/Nt so the total transmitted power is normalized*/
 
 	double d = 0.0;
-	if (Q == 2)   //BPSK
-			{
+	if (Q == 2) {//BPSK
 		d = sqrt(pav);
-	}
-	else {
+	} else {
 		d = sqrt((3 *pav)/ (2 * (double) ( (Q - 1))));
 	}
 	gsl_vector *psymbolconstellationreal;
@@ -36,7 +34,7 @@ void symbolconstellation(gsl_vector_complex *psymbolconstellation, double pav) {
 			} else {
 				GSL_SET_COMPLEX(&z,
 						gsl_vector_get(psymbolconstellationreal, count / M),
-						gsl_vector_get(psymbolconstellationreal, (M-1-count % M)));
+						gsl_vector_get(psymbolconstellationreal, (M - 1 - count % M)));
 				gsl_vector_complex_set(psymbolconstellation, count, z);
 			}
 		}

@@ -126,7 +126,6 @@ void selectiveListDetection(gsl_vector_complex *preceived, gsl_matrix_complex *p
 	gsl_vector_free(EuclideanV);
 	freeLinkedList(index1_head);
 	freeLinkedList(index2_head);
-
 	return;
 }
 

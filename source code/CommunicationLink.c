@@ -445,7 +445,6 @@ fprintf(pfile, "\n");
 #endif
     	fclose(pfile);
     	SNR_tmp += Step_SNR;
-
     }
     pfile = fopen(fileName, "a");
     fprintf(pfile, "*************************************\n");

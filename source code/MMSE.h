@@ -51,9 +51,6 @@ gsl_matrix_complex_free(G_preInv);
 gsl_matrix_complex_free(G);
 gsl_permutation_free(p);
 free(signum);
-
-
-
 }
 
 

@@ -31,7 +31,6 @@ void IU(gsl_matrix_complex *Win, gsl_matrix_complex *pH1,
 	gsl_matrix_complex_memcpy(W_current, Win);
 	H_col = gsl_vector_complex_calloc(Nr); //column h_(n) extracted from H2
     pH_tmp_col = gsl_vector_complex_calloc(Nr);
-
 	//(Nt-L) times of iterative inflate update
 	for (count = 0;count < ReL; count++){
 		T1 = gsl_vector_complex_calloc(L + count);
@@ -52,7 +51,7 @@ void IU(gsl_matrix_complex *Win, gsl_matrix_complex *pH1,
 	    c_sub1 = pow(c_sub1, 2);
 	    gsl_blas_zdotc(T1, T2, &c_sub2_complex);
 	    c_sub2 = GSL_REAL(c_sub2_complex);
-	    c = (double)1 / (c_sub1 + ((double)1/snr) - c_sub2);
+	    c = (double)1 / (c_sub1 + ((double)1 / snr) - c_sub2);
 	    gsl_vector_complex_memcpy(T3, T2);
 	    GSL_SET_COMPLEX(&c_complex, -c, 0);
 	    gsl_vector_complex_scale(T3, c_complex);
@@ -86,7 +85,7 @@ void IU(gsl_matrix_complex *Win, gsl_matrix_complex *pH1,
         for (count1 = 0; count1 < (L + count + 1); count1++){
         	if(count1 == (L + count)){
         		gsl_matrix_complex_set_col(W_next,count1, W_next_sub2);
-        	}else{
+        	} else {
                gsl_matrix_complex_get_col(W_next_col, W_next_sub1,count1);
                gsl_matrix_complex_set_col(W_next, count1, W_next_col);
         	}

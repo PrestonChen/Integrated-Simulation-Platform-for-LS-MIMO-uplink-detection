@@ -41,12 +41,10 @@ void SENIA(gsl_matrix_complex *Win, int k, gsl_matrix_complex *Wout,
 
      }
      gsl_matrix_complex_memcpy(Wout, M_current);
-
      gsl_matrix_complex_free(M_current);
      gsl_matrix_complex_free(M_Inter1);
      gsl_matrix_complex_free(M_Inter2);
      gsl_matrix_complex_free(M_Inter3);
-
 }
 
 

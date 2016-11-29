@@ -22,7 +22,6 @@ void fullfact(
 	for(count1 = 0; count1 < N; count1++)
 	{
 //		memset(settings2,0,int(pow(M,N))*sizeof(int));
-
 		nreps = (int)(ssize / ncycles);
 		ncycles = ncycles / M;
 		settings1 = (int*)calloc(1, M * nreps * sizeof(int));
@@ -33,7 +32,6 @@ void fullfact(
 				settings1[count2 * nreps + count3] = count2;
 			}
 		}
-
 
 	for(count2 = 0; count2 < ncycles; count2++)
 	{
@@ -46,7 +44,6 @@ void fullfact(
 	{
 	gsl_matrix_set(s_sub_index, count1, count4, settings2[count4]);
 	}
-
     free(settings1);
 	}
 //	memset(settings2,0,int(pow(M,N))*sizeof(int));

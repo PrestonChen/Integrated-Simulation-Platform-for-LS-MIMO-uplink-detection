@@ -144,9 +144,6 @@ void MMSE_SIC_ordering_fast(gsl_vector_complex *preceived, gsl_matrix_complex *p
 	   gsl_vector_free(diag);
 	   gsl_vector_complex_free(row);
 	   gsl_matrix_complex_free(row_M);
-
-
-
    }
    free(head);
    gsl_vector_complex_free(preceive_tmp);

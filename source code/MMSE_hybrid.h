@@ -39,7 +39,6 @@ int MMSE_hybrid(gsl_vector_complex *preceived, gsl_matrix_complex *pH,
 	gsl_matrix_complex_set_identity(G_pre);
 	gsl_blas_zgemm(CblasConjTrans, CblasNoTrans, alpha1, pH, pH, beta, G_pre);
 	//Computation of OM
-
     gsl_matrix_complex_memcpy(LU, G_pre);
     gsl_linalg_complex_LU_decomp(LU, p, signum);
     OM_tmp1Complex = gsl_linalg_complex_LU_det(LU, signum[0]);
@@ -66,7 +65,6 @@ int MMSE_hybrid(gsl_vector_complex *preceived, gsl_matrix_complex *pH,
 	gsl_vector_complex_free(G_preCol);
     gsl_permutation_free(p);
     return hybridLabel;
-
 }
 
 
