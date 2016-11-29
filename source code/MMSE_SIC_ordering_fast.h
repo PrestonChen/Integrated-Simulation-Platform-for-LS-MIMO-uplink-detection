@@ -51,13 +51,13 @@ void MMSE_SIC_ordering_fast(gsl_vector_complex *preceived, gsl_matrix_complex *p
    int count, count1, count2;
    int index;
    for (count = 0; count < Nt; count++){
-	   G_pre = gsl_matrix_complex_calloc(Nt-count, Nt-count);
-	   G_preInv = gsl_matrix_complex_calloc(Nt-count, Nt-count);
+	   G_pre = gsl_matrix_complex_calloc(Nt - count, Nt - count);
+	   G_preInv = gsl_matrix_complex_calloc(Nt - count, Nt - count);
 	   gsl_matrix_complex_set_identity(G_pre);
-	   p = gsl_permutation_calloc(Nt-count);
-	   diag = gsl_vector_calloc(Nt-count);
-	   row = gsl_vector_complex_calloc(Nt-count);
-	   row_M = gsl_matrix_complex_calloc(1, Nt-count);
+	   p = gsl_permutation_calloc(Nt - count);
+	   diag = gsl_vector_calloc(Nt - count);
+	   row = gsl_vector_complex_calloc(Nt - count);
+	   row_M = gsl_matrix_complex_calloc(1, Nt - count);
 	   gsl_blas_zgemm(CblasConjTrans, CblasNoTrans, alpha, pH_inter,
 			   pH_inter, beta1, G_pre);
 	   if(count == 0){
@@ -74,7 +74,7 @@ void MMSE_SIC_ordering_fast(gsl_vector_complex *preceived, gsl_matrix_complex *p
 	   gsl_matrix_complex_get_row(row, G_preInv, k);
 	   gsl_matrix_complex_set_row(row_M, 0, row);
 	   gsl_blas_zgemm(CblasNoTrans, CblasConjTrans, alpha, row_M, pH_inter, beta2, Gmmse);
-	   gsl_matrix_complex_get_row(GmmseR, Gmmse,0);
+	   gsl_matrix_complex_get_row(GmmseR, Gmmse, 0);
 	   gsl_blas_zdotu(GmmseR, preceive_tmp, &symCurrent);
 	   gsl_vector_complex_set(symCurrent_V, 0, symCurrent);  //estimation
 	   RectangularQAMSlicer(symCurrent_V, pav, M);
@@ -95,7 +95,7 @@ void MMSE_SIC_ordering_fast(gsl_vector_complex *preceived, gsl_matrix_complex *p
  	   psymOut_tmp = gsl_vector_complex_calloc(Nt-count);
        gsl_blas_zgemm(CblasNoTrans, CblasConjTrans, alpha, G_preInv, pH_inter, beta2, Gequal);
        gsl_blas_zgemv(CblasNoTrans, alpha, Gequal, preceive_tmp, beta2, psymOut_tmp);
-	   for (count1 = 0;count1<(Nt-count);count1++){
+	   for (count1 = 0; count1 < (Nt - count); count1++){
 		   psymOut_tmpEle = gsl_vector_complex_get(psymOut_tmp, count1);
 		   diag_tmp = (fabs(GSL_REAL(psymOut_tmpEle))+fabs(GSL_IMAG(psymOut_tmpEle)))
 				   / (gsl_vector_get(diag, count1));
@@ -124,9 +124,9 @@ void MMSE_SIC_ordering_fast(gsl_vector_complex *preceived, gsl_matrix_complex *p
 		   gsl_matrix_complex_free(row_M);
 		   break;
 	   }
-	   pHtemp = gsl_matrix_complex_calloc(Nr, Nt-count-1);
+	   pHtemp = gsl_matrix_complex_calloc(Nr, Nt - count - 1);
 		count2 = 0;
-		for (count1 = 0;count1<(Nt-count);count1++){
+		for (count1 = 0; count1< (Nt - count) ;count1++){
 		  if (count1 == k){
 			  continue;
 		  }
