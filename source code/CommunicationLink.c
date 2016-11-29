@@ -54,14 +54,14 @@ int main(void) {
 	 */
 	char CWD[1024];   //the current work directory
 	getcwd(CWD, sizeof(CWD));  //get the current directory
-	const int Nr  =  receiveAntennas;   // number of receive antennas
-	const int Nt  =  transmitAntennas; // number of transmit antennas
-	const int M  =  symConstellationSize; //symbol constellation size
-	const double pav  =  (double)1/(double)Nt;  //average symbol power
+	const int Nr = receiveAntennas;   // number of receive antennas
+	const int Nt = transmitAntennas; // number of transmit antennas
+	const int M = symConstellationSize; //symbol constellation size
+	const double pav = (double)1/(double)Nt;  //average symbol power
 	clock_t start, end; //time clock
 	int SNR_tmp;
 	FILE *pfile; //the output file
-	pfile  =  fopen(fileName, "a");
+	pfile = fopen(fileName, "a");
     fprintf(pfile, "\n");
     fprintf(pfile, "Output file of the integrated simulation platform of LS-MIMO detectors\n");
     fprintf(pfile, "Current work directory is %s\n", CWD);
@@ -71,9 +71,9 @@ int main(void) {
     fprintf(pfile, "the average transmit symbol power is %g\n", pav);
     fprintf(pfile, "SNR (dB) are\n");
      SNR_tmp = Start_SNR;
-     while(SNR_tmp< = End_SNR){
+     while(SNR_tmp <= End_SNR){
      	fprintf(pfile, "%d, ", SNR_tmp );
-     	SNR_tmp+ = Step_SNR;
+     	SNR_tmp += Step_SNR;
      }
      fprintf(pfile, "==============================================================================\n");
      fprintf(pfile, "the minimum channel realization is %g\n", (double) minChannelRealizations);
@@ -90,9 +90,9 @@ int main(void) {
 
 printf("The SNR (dB) considered are\n");
      SNR_tmp  =  Start_SNR;
-     while(SNR_tmp<  =  End_SNR){
+     while(SNR_tmp <=  End_SNR){
      	printf("%d, ", SNR_tmp);
-     	SNR_tmp+ = Step_SNR;
+     	SNR_tmp += Step_SNR;
      }
 printf("\n");
 
@@ -256,27 +256,27 @@ fprintf(pfile, "\n");
  * Communication Link data setup
  */
     int count;
-    gsl_vector_ulong *pgraydata  =  gsl_vector_ulong_calloc (M); //gray code book
-    gsl_vector_complex *pSymConstell  =  gsl_vector_complex_calloc (M); //symbol constellation alphabet
-    gsl_vector_ulong *pdata  =  gsl_vector_ulong_calloc (Nt); //the indexes of transmitted data
-    gsl_vector_ulong *pgrayInput  =  gsl_vector_ulong_calloc (Nt);// the gray code of the transmitted data
-    gsl_vector_complex *ptransmitted  =  gsl_vector_complex_calloc (Nt); //the transmitted symbol vector
+    gsl_vector_ulong *pgraydata = gsl_vector_ulong_calloc (M); //gray code book
+    gsl_vector_complex *pSymConstell = gsl_vector_complex_calloc (M); //symbol constellation alphabet
+    gsl_vector_ulong *pdata = gsl_vector_ulong_calloc (Nt); //the indexes of transmitted data
+    gsl_vector_ulong *pgrayInput = gsl_vector_ulong_calloc (Nt);// the gray code of the transmitted data
+    gsl_vector_complex *ptransmitted = gsl_vector_complex_calloc (Nt); //the transmitted symbol vector
     gsl_matrix_complex *pH  =  gsl_matrix_complex_calloc (Nr, Nt);   //the physical channel matrix
     gsl_matrix_complex *pH_tmp = gsl_matrix_complex_calloc(Nr, Nt); //the temporary channel matrix
-    gsl_matrix_complex *pHest  =  gsl_matrix_complex_calloc (Nr, Nt);   //the estimated channel matrix (with error)
-    gsl_matrix_complex *pRr  =  gsl_matrix_complex_calloc (Nr, Nr);  //receive spatial correlation matrix
-    gsl_matrix_complex *pRt  =  gsl_matrix_complex_calloc (Nt, Nt);  //transmit spatial correlation matrix
-    gsl_vector_complex *pnoise  =  gsl_vector_complex_calloc (Nr);  //AWGN vector
-    gsl_vector_complex *preceived  =  gsl_vector_complex_calloc (Nr);  //the received signal vector
+    gsl_matrix_complex *pHest = gsl_matrix_complex_calloc (Nr, Nt);   //the estimated channel matrix (with error)
+    gsl_matrix_complex *pRr = gsl_matrix_complex_calloc (Nr, Nr);  //receive spatial correlation matrix
+    gsl_matrix_complex *pRt = gsl_matrix_complex_calloc (Nt, Nt);  //transmit spatial correlation matrix
+    gsl_vector_complex *pnoise = gsl_vector_complex_calloc (Nr);  //AWGN vector
+    gsl_vector_complex *preceived = gsl_vector_complex_calloc (Nr);  //the received signal vector
     gsl_vector_complex *psymOut = gsl_vector_complex_calloc(Nt); //the output of the detectors
     int *ErrorIndex_V = (int*)calloc(1, sizeof(int)*Nt);    //the indexes of the erroneous symbol
     gsl_vector_ulong *pgrayOut;   //output gray code for erroneous symbols
     gsl_rng *pr;    //random number generator
-	int seed  =  time (NULL);
+	int seed = time (NULL);
 	const gsl_rng_type *pT;
-	pT  =  gsl_rng_default;
-	pr  =  gsl_rng_alloc (pT);
-    gsl_rng_set (pr,seed);
+	pT = gsl_rng_default;
+	pr = gsl_rng_alloc (pT);
+    gsl_rng_set (pr, seed);
     gsl_complex alpha, beta;   //auxiliary complex numbers
     GSL_SET_COMPLEX(&alpha, 1,0);
     GSL_SET_COMPLEX(&beta, 0, 0);
@@ -302,7 +302,7 @@ fprintf(pfile, "\n");
     symbolconstellation(pSymConstell, pav);
 #if  defined(DEBUG)
     printf("the symbol constellation are:\n");
-    for (count = 0;count < M; count++){
+    for (count = 0; count < M; count++){
     	printf("%f+i%f, ", gsl_vector_complex_get(pSymConstell, count).dat[0],
     			gsl_vector_complex_get(pSymConstell, count).dat[1]);
     }
@@ -329,8 +329,8 @@ fprintf(pfile, "\n");
     	BER = 0;
     	Realizations = 0;
     	pfile = fopen(fileName, "a");
-		snr = pow(10,((double)SNR_tmp/(double)10)); //SNR in decimal
-		noiseV = (double)1/snr;     //noise variance
+		snr = pow(10, ((double)SNR_tmp / (double)10)); //SNR in decimal
+		noiseV = (double)1 / snr;     //noise variance
 #if defined(MMSEHYB)
 		int hybridLabel = 0;  //set the counter that records the number of K-SENIA-IU aided MMSE used in the hybrid MMSE detector
 #endif
@@ -341,7 +341,7 @@ fprintf(pfile, "\n");
 #if defined(DEBUG)
     		printf("Test of pdata\n");
 
-    		for ( count = 0;count < Nt; count++){
+    		for ( count = 0; count < Nt; count++){
     			printf("%u, ", gsl_vector_ulong_get(pdata, count));
     		}
     		printf("\n");
@@ -360,32 +360,32 @@ fprintf(pfile, "\n");
 //Applications of approximate matrix inversion in linear MMSE detection
 #if defined(MMSEEMI)||defined(MMSESE3)||defined(MMSESENIA)||defined(MMSEEMIIU)||defined(MMSESE3IU)||defined(MMSESENIAIU)
 #if defined (MMSEEMI)
-    		MMSE(preceived, pH, snr/(double)(Nt), pav,  M,  psymOut);
+    		MMSE(preceived, pH, snr / (double)(Nt), pav,  M,  psymOut);
 #endif
 #if defined (MMSESE3)
-    		 MMSE_SE(preceived, pH, snr/(double)Nt,  pav, M, k, psymOut);
+    		 MMSE_SE(preceived, pH, snr / (double)Nt,  pav, M, k, psymOut);
 #endif
 #if defined (MMSESENIA)
-    		 MMSE_SENIA(preceived, pH, snr/(double)Nt, pav, M,  k, psymOut);
+    		 MMSE_SENIA(preceived, pH, snr / (double)Nt, pav, M,  k, psymOut);
 #endif
 #if defined (MMSEEMIIU)
-    		 MMSE_IU(preceived, pH, snr/(double)Nt, pav,  M, L, psymOut);
+    		 MMSE_IU(preceived, pH, snr / (double)Nt, pav,  M, L, psymOut);
 #endif
 #if defined (MMSESE3IU)
-    		 MMSE_SE_IU (preceived, pH, snr/(double)Nt,  pav, M,  k,  L, psymOut);
+    		 MMSE_SE_IU (preceived, pH, snr / (double)Nt,  pav, M,  k,  L, psymOut);
 #endif
 #if defined (MMSESENIAIU)
-    		 MMSE_SENIA_IU (preceived, pH, snr/(double)Nt,  pav, M,  k,  L, psymOut);
+    		 MMSE_SENIA_IU (preceived, pH, snr / (double)Nt,  pav, M,  k,  L, psymOut);
 #endif
 //hybrid linear detector
 #elif defined(MMSEHYB)
-  hybridLabel += MMSE_hybrid(preceived, pH, snr/(double)Nt, pav, M, k, OM, psymOut);
+  hybridLabel += MMSE_hybrid(preceived, pH, snr / (double)Nt, pav, M, k, OM, psymOut);
 //MMSE-SIC with different ordering strategies
 #elif defined(MMSESIC)||defined(MMSEVBLASTSIC)||defined(MMSEIOSIC)
   MMSE_SIC_ordering(preceived, pH, snr/(double)Nt, pav, M, psymOut);
 //selection based list detections
 #elif (defined (CIS)||defined (DMS))&(defined (SLD)||defined(SLDSENIAIU))&(defined(SIC)||defined(VBLASTSIC)||defined(IOSIC))
-   selectiveListDetection(preceived, pH, snr/(double)Nt, pav, N, k, L, pSymConstell,psymOut);
+   selectiveListDetection(preceived, pH, snr / (double)Nt, pav, N, k, L, pSymConstell,psymOut);
 #endif
     		symErrorCheck(ptransmitted, psymOut, ErrorIndex_V, symError_sub, frameError_sub);   //check symbol and frame errors
     		Realizations++;
@@ -423,12 +423,12 @@ fprintf(pfile, "\n");
 
     	}
         end = clock();
-        FER = (double)frameError/((double)(Realizations));  //calculate frame error rate
-        SER = ((double)symError/((double)Nt))/((double)(Realizations)); //calculate symbol error rate
-        BER = ((double)bitError/((double)Nt*(double)ceil(log2(M))))/((double)(Realizations)); //calculate bit error rate
+        FER = (double)frameError / ((double)(Realizations));  //calculate frame error rate
+        SER = ((double)symError / ((double)Nt)) / ((double)(Realizations)); //calculate symbol error rate
+        BER = ((double)bitError / ((double)Nt*(double)ceil(log2(M)))) / ((double)(Realizations)); //calculate bit error rate
 #if defined(MMSEHYB)
     	printf("SNR = %d, Realization = %d, FER = %g, SER = %g, BER = %g, Percentage of AMI = %g, OperationTime = %g s\n", SNR_tmp, Realizations, FER, SER, BER,
-    			(double)hybridLabel/(double)Realizations, (end-start)/(double)CLOCKS_PER_SEC);
+    			(double)hybridLabel / (double)Realizations, (end-start) / (double)CLOCKS_PER_SEC);
 #else
     	printf("SNR = %d, Realization = %d, FER = %g, SER = %g, BER = %g, OperationTime = %g s\n", SNR_tmp, Realizations, FER, SER, BER,
     			(end-start)/(double)CLOCKS_PER_SEC);
@@ -436,15 +436,15 @@ fprintf(pfile, "\n");
 #if defined(MMSEHYB)
     	fprintf(pfile, "%d \t %d \t %d \t %d \t %d \t %g \t %g \t %g \t %g \t %g\n", \
     			SNR_tmp, Realizations, frameError, symError, bitError, FER, SER, BER,\
-    			(double)hybridLabel/(double)Realizations, (end-start)/(double)CLOCKS_PER_SEC);
+    			(double)hybridLabel / (double)Realizations, (end-start) / (double)CLOCKS_PER_SEC);
 
 #else
     	fprintf(pfile, "%d \t %d \t %d \t %d \t %d \t %g \t %g \t %g \t %g\n", \
            SNR_tmp, Realizations, frameError, symError, bitError, FER, SER, BER, \
-           (end-start)/(double)CLOCKS_PER_SEC);
+           (end-start) / (double)CLOCKS_PER_SEC);
 #endif
     	fclose(pfile);
-    	SNR_tmp+ = Step_SNR;
+    	SNR_tmp += Step_SNR;
 
     }
     pfile = fopen(fileName, "a");
