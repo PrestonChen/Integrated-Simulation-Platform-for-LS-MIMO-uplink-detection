@@ -31,7 +31,7 @@ void diversity_max_selection(gsl_matrix_complex *pH, int N, int k, int L, double
 	gsl_vector *diagMax, *diag;
 	gsl_vector_complex *colReserve;
 	subset = gsl_combination_calloc(Nt, N);
-	int Nu = gsl_sf_fact(Nt)/(gsl_sf_fact(Nt-N)*gsl_sf_fact(N));   //the number of subsets
+	int Nu = gsl_sf_fact(Nt) / (gsl_sf_fact(Nt-N)*gsl_sf_fact(N));   //the number of subsets
 	int count, count1, count2, count3, count4;
 	double minValue;
 	p = gsl_permutation_calloc(Nt-N);
@@ -49,7 +49,7 @@ void diversity_max_selection(gsl_matrix_complex *pH, int N, int k, int L, double
 //	int m;
 	int pilot = 0;
 	double maxValueTmp = 0;
-   for (count = 0;count<Nu;count++){
+   for (count = 0; count < Nu; count++){
       //construct H1Tmp, H2Tmp
 	   count3 = 0;
 	   count4 = 0;
@@ -64,7 +64,7 @@ void diversity_max_selection(gsl_matrix_complex *pH, int N, int k, int L, double
 				   break;
 			   }
 		   }
-		   if(pilot =  = 1){
+		   if(pilot == 1){
 			   continue;
 		   }else{
 			   gsl_matrix_complex_get_col(colReserve, pH, count1);
@@ -88,16 +88,16 @@ void diversity_max_selection(gsl_matrix_complex *pH, int N, int k, int L, double
 	   gsl_matrix_complex *pH_sub1, *pH_sub2, *WIni, *WIniInv, *WIninonofuse;
 	   gsl_vector_complex *pH_col_tmp;
 	   pH_sub1 = gsl_matrix_complex_calloc(Nr, L);
-	   pH_sub2 = gsl_matrix_complex_calloc(Nr, Nt-N-L);
+	   pH_sub2 = gsl_matrix_complex_calloc(Nr, Nt - N - L);
 	   WIni = gsl_matrix_complex_calloc(L, L);
 	   WIniInv = gsl_matrix_complex_calloc(L, L);
 	   WIninonofuse = gsl_matrix_complex_calloc(L, L);
 	   pH_col_tmp = gsl_vector_complex_calloc(Nr);
-		for(count1 = 0;count1<Nt-N;count1++){
-			if(count1<L){
+		for(count1 = 0; count1 < Nt - N; count1++){
+			if (count1 < L){
 			gsl_matrix_complex_get_col(pH_col_tmp, H2Tmp, count1);
 			gsl_matrix_complex_set_col(pH_sub1, count1, pH_col_tmp);
-			}else{
+			} else {
 			gsl_matrix_complex_get_col(pH_col_tmp, H2Tmp, count1);
 			gsl_matrix_complex_set_col(pH_sub2, count1-L, pH_col_tmp);
 			}
@@ -118,14 +118,14 @@ void diversity_max_selection(gsl_matrix_complex *pH, int N, int k, int L, double
 	   gsl_vector_memcpy(diag, &diag_viewReal.vector);
 	   maxValueTmp = gsl_vector_max(diag);
 	   //update the information of the subset with strongest weakest sub-data stream
-	   if(count =  = 0){
+	   if (count == 0){
 		   minValue = maxValueTmp;
 		   gsl_matrix_complex_memcpy(pH1, H1Tmp);
 		   gsl_matrix_complex_memcpy(pH2, H2Tmp);
 		   gsl_matrix_complex_memcpy(WInv, G_preInv);
 		   index2_head->next = create(Nt);
 		   index1_head->next = split(index2_head, subset);
-	   }else if(maxValueTmp<minValue){
+	   } else if (maxValueTmp<minValue){
 		   minValue = maxValueTmp;
 		   gsl_matrix_complex_memcpy(pH1, H1Tmp);
 		   gsl_matrix_complex_memcpy(pH2, H2Tmp);
@@ -137,7 +137,6 @@ void diversity_max_selection(gsl_matrix_complex *pH, int N, int k, int L, double
 	   }
 	   gsl_combination_next(subset);
    }
-
   	gsl_combination_free(subset);
   	gsl_matrix_complex_free(G_pre);
   	gsl_matrix_complex_free(G_preInv);
