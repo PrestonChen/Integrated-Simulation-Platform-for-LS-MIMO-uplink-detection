@@ -62,7 +62,7 @@ int main(void) {
 	int SNR_tmp;
 	FILE *pfile; //the output file
 	pfile  =  fopen(fileName, "a");
-    fprintf(pfile, " =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  = \n");
+    fprintf(pfile, "\n");
     fprintf(pfile, "Output file of the integrated simulation platform of LS-MIMO detectors\n");
     fprintf(pfile, "Current work directory is %s\n", CWD);
     fprintf(pfile, "*************************************\n");
@@ -75,14 +75,14 @@ int main(void) {
      	fprintf(pfile, "%d, ", SNR_tmp );
      	SNR_tmp+ = Step_SNR;
      }
-     fprintf(pfile, "\n");
+     fprintf(pfile, "==============================================================================\n");
      fprintf(pfile, "the minimum channel realization is %g\n", (double) minChannelRealizations);
      fprintf(pfile, "the minimum frame errors accumulated is %g\n", (double) minFrameErrors);
 
 /**
  * Command Window Interface output
  */
-     printf(" =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  = \n");
+     printf("==============================================================================\n");
      printf("The program begin.\n");
      printf("Integrated simulation platform of LS-MIMO detections\n");
      printf("%d X %d %d QAM system\n", Nr, Nt, M);
