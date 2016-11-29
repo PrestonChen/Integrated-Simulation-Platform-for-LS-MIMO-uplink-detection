@@ -15,7 +15,7 @@ void MMSE_SENIA_IU(gsl_vector_complex *preceived, gsl_matrix_complex *pH,
 		double snr, double pav, int M, int k, int L, gsl_vector_complex *psymOut){
 	gsl_complex alpha, beta1,beta2;
 			GSL_SET_COMPLEX(&alpha, 1,0);
-			GSL_SET_COMPLEX(&beta1, 1/snr, 0);
+			GSL_SET_COMPLEX(&beta1, 1 / snr, 0);
 			GSL_SET_COMPLEX(&beta2, 0, 0);
 			int Nr = pH->size1;
 			int Nt = pH->size2;
@@ -34,7 +34,7 @@ void MMSE_SENIA_IU(gsl_vector_complex *preceived, gsl_matrix_complex *pH,
 			pH_sub1 = gsl_matrix_complex_calloc(Nr, L);
 			pH_sub2 = gsl_matrix_complex_calloc(Nr, Nt-L);
 			pH_col_tmp = gsl_vector_complex_calloc(Nr);
-			for(count = 0; count < L; count++){
+			for (count = 0; count < L; count++){
 				gsl_matrix_complex_get_col(pH_col_tmp, pH, count);
 				gsl_matrix_complex_set_col(pH_sub1, count, pH_col_tmp);
 			}
