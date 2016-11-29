@@ -6,19 +6,17 @@ void binaryerrors (gsl_vector_ulong *pgrayOut,  int *ErrorIndex, gsl_vector_ulon
 	int temp1, temp2;
 	int currentBit;
 	(*errors) = 0;
-	for (count1 = 0;count1 < l;count1++){
+	for (count1 = 0; count1 < l; count1++){
 	  temp1 = gsl_vector_ulong_get(pgrayOut, count1);
 	  temp2 = gsl_vector_ulong_get(pgrayInput, ErrorIndex[count1]);
-	  temp1 = temp1^temp2;
+	  temp1 = temp1 ^ temp2;
 	  for (count2 = 0; count2 < M; count2++){
-		  currentBit = (int) temp1%2;
-		  temp1 = temp1>>1;
+		  currentBit = (int)temp1 % 2;
+		  temp1 = temp1 >> 1;
 		  if (currentBit == 1){
 			  (*errors)++;
 		  }
 	  }
 	}
-
-
 	return;
 }
