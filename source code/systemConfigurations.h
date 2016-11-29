@@ -4,7 +4,6 @@
  *      Author: tianpei.chen@mail.mcgill.ca
  *      This file sets all the system configurations for this integrated simulation platform.
  */
-
 #ifndef SYSTEMCONFIGURATIONS_H_
 #define SYSTEMCONFIGURATIONS_H_
 //number of receive antenna
