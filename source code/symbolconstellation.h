@@ -28,7 +28,6 @@ void symbolconstellation(gsl_vector_complex *psymbolconstellation, double pav) {
 		for (count = 0; count < M; count++) /*generates an M-PAM constellation*/
 			gsl_vector_set(psymbolconstellationreal, count,
 					d * (2 * count - M + 1));
-
 		for (count = 0; count < Q; count++) {
 			if (Q == 2) {
 				GSL_SET_COMPLEX(&z,
@@ -41,10 +40,7 @@ void symbolconstellation(gsl_vector_complex *psymbolconstellation, double pav) {
 				gsl_vector_complex_set(psymbolconstellation, count, z);
 			}
 		}
-
-
 	gsl_vector_free(psymbolconstellationreal);
-
 	return;
 }
 
