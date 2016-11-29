@@ -44,9 +44,9 @@ int MMSE_hybrid(gsl_vector_complex *preceived, gsl_matrix_complex *pH,
     gsl_linalg_complex_LU_decomp(LU, p, signum);
     OM_tmp1Complex = gsl_linalg_complex_LU_det(LU, signum[0]);
     OM_tmp1 = OM_tmp1Complex.dat[0];
-    for (count = 0;count<Nt;count++){
+    for (count = 0; count < Nt; count++){
     	gsl_matrix_complex_get_col(G_preCol, pH, count);
-    	OM_tmp2* = pow(gsl_blas_dznrm2(G_preCol),2);
+    	OM_tmp2 *= pow(gsl_blas_dznrm2(G_preCol), 2);
     }
     OM = OM_tmp1 / OM_tmp2;
     //MMSE detection
