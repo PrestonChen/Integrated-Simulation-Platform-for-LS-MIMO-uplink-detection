@@ -17,9 +17,9 @@ void channel_independent_selection(gsl_matrix_complex *pH, int N, int k, int L, 
 		struct Node *index1_head, struct Node *index2_head,
 		gsl_matrix_complex *pH1, gsl_matrix_complex *pH2, gsl_matrix_complex *G_preInv
 		){
-	int Nr = pH->size1;
-	int Nt = pH->size2;
-	int Nu = gsl_sf_fact(Nt)/(gsl_sf_fact(Nt-N)*gsl_sf_fact(N));   //the number of subsets
+    int Nr = pH->size1;
+    int Nt = pH->size2;
+    int Nu = gsl_sf_fact(Nt)/(gsl_sf_fact(Nt-N)*gsl_sf_fact(N));   //the number of subsets
     gsl_combination *subset;
     gsl_vector_complex *colReserve;
     colReserve = gsl_vector_complex_calloc(Nr);
@@ -64,12 +64,12 @@ void channel_independent_selection(gsl_matrix_complex *pH, int N, int k, int L, 
     gsl_matrix_complex *pH_sub1, *pH_sub2, *WIni, *WIniInv, *WIninonofuse;
     	   gsl_vector_complex *pH_col_tmp;
     	   pH_sub1 = gsl_matrix_complex_calloc(Nr, L);
-    	   pH_sub2 = gsl_matrix_complex_calloc(Nr, Nt-N-L);
+    	   pH_sub2 = gsl_matrix_complex_calloc(Nr, Nt - N - L);
     	   WIni = gsl_matrix_complex_calloc(L, L);
     	   WIniInv = gsl_matrix_complex_calloc(L, L);
     	   WIninonofuse = gsl_matrix_complex_calloc(L, L);
     	   pH_col_tmp = gsl_vector_complex_calloc(Nr);
-    		for(count1 = 0;count1<Nt-N;count1++){
+    		for(count1 = 0;count1 < Nt - N;count1++){
     			if(count1<L){
     			gsl_matrix_complex_get_col(pH_col_tmp, pH2, count1);
     			gsl_matrix_complex_set_col(pH_sub1, count1, pH_col_tmp);
@@ -101,9 +101,6 @@ void channel_independent_selection(gsl_matrix_complex *pH, int N, int k, int L, 
 	   free(signum);
 	   gsl_matrix_complex_free(G_pre);
 #endif
-
-
-
     gsl_combination_free(subset);
     gsl_vector_complex_free(colReserve);
 	return;
