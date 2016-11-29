@@ -1,5 +1,5 @@
 /*
- ============================================================================
+  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =
  Name        : CommunicationLink.c
  Author      : Tianpei Chen
  Version     : final 3.0
@@ -17,7 +17,7 @@ At each SNR level, Monte-Carlo (MC) simulation is performed in the step
 of channel realizations. The MC simulation stops until a minimum number of channel
 realization is achieved as well as a minimum number of frame errors are accumulated.
 
- ============================================================================
+  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =
  */
 
 #include "gslCommon.h"
@@ -54,15 +54,15 @@ int main(void) {
 	 */
 	char CWD[1024];   //the current work directory
 	getcwd(CWD, sizeof(CWD));  //get the current directory
-	const int Nr=receiveAntennas;   // number of receive antennas
-	const int Nt=transmitAntennas; // number of transmit antennas
-	const int M=symConstellationSize; //symbol constellation size
-	const double pav=(double)1/(double)Nt;  //average symbol power
+	const int Nr  =  receiveAntennas;   // number of receive antennas
+	const int Nt  =  transmitAntennas; // number of transmit antennas
+	const int M  =  symConstellationSize; //symbol constellation size
+	const double pav  =  (double)1/(double)Nt;  //average symbol power
 	clock_t start, end; //time clock
 	int SNR_tmp;
 	FILE *pfile; //the output file
-	pfile=fopen(fileName, "a");
-    fprintf(pfile, "==============================================================================\n");
+	pfile  =  fopen(fileName, "a");
+    fprintf(pfile, " =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  = \n");
     fprintf(pfile, "Output file of the integrated simulation platform of LS-MIMO detectors\n");
     fprintf(pfile, "Current work directory is %s\n", CWD);
     fprintf(pfile, "*************************************\n");
@@ -70,10 +70,10 @@ int main(void) {
     fprintf(pfile, "%d times %d MIMO with %d QAM modulation\n", Nr, Nt, M);
     fprintf(pfile, "the average transmit symbol power is %g\n", pav);
     fprintf(pfile, "SNR (dB) are\n");
-     SNR_tmp=Start_SNR;
-     while(SNR_tmp<=End_SNR){
+     SNR_tmp = Start_SNR;
+     while(SNR_tmp< = End_SNR){
      	fprintf(pfile, "%d, ", SNR_tmp );
-     	SNR_tmp+=Step_SNR;
+     	SNR_tmp+ = Step_SNR;
      }
      fprintf(pfile, "\n");
      fprintf(pfile, "the minimum channel realization is %g\n", (double) minChannelRealizations);
@@ -82,17 +82,17 @@ int main(void) {
 /**
  * Command Window Interface output
  */
-     printf("===================================================\n");
+     printf(" =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  = \n");
      printf("The program begin.\n");
      printf("Integrated simulation platform of LS-MIMO detections\n");
      printf("%d X %d %d QAM system\n", Nr, Nt, M);
      printf("Current work directory is %s\n", CWD);
 
 printf("The SNR (dB) considered are\n");
-     SNR_tmp=Start_SNR;
-     while(SNR_tmp<=End_SNR){
+     SNR_tmp  =  Start_SNR;
+     while(SNR_tmp<  =  End_SNR){
      	printf("%d, ", SNR_tmp);
-     	SNR_tmp+=Step_SNR;
+     	SNR_tmp+ = Step_SNR;
      }
 printf("\n");
 
@@ -208,7 +208,7 @@ printf("\n");
 #elif defined (SLD)||defined(SLDSENIAIU)
     printf("Selection based list detection mode\n");
     fprintf(pfile, "Selection based list detection mode\n");
-	const int N=Nsel; //number of antennas selected at channel partition stage
+	const int N = Nsel; //number of antennas selected at channel partition stage
     printf("The number of antennas selected at the channel partition stage is %d\n", N);
     fprintf(pfile, "The number of antennas selected at the channel partition stage is %d\n", N);
 #if defined (DMS)
@@ -246,7 +246,7 @@ printf("\n");
 
 
 #endif
-printf("===================================================\n");
+printf("==============================================================================\n");
 fprintf(pfile, "*************************************\n");
 fprintf(pfile, "\n");
 fprintf(pfile, "\n");
@@ -256,44 +256,44 @@ fprintf(pfile, "\n");
  * Communication Link data setup
  */
     int count;
-    gsl_vector_ulong *pgraydata = gsl_vector_ulong_calloc (M); //gray code book
-    gsl_vector_complex *pSymConstell = gsl_vector_complex_calloc (M); //symbol constellation alphabet
-    gsl_vector_ulong *pdata = gsl_vector_ulong_calloc (Nt); //the indexes of transmitted data
-    gsl_vector_ulong *pgrayInput = gsl_vector_ulong_calloc (Nt);// the gray code of the transmitted data
-    gsl_vector_complex *ptransmitted = gsl_vector_complex_calloc (Nt); //the transmitted symbol vector
-    gsl_matrix_complex *pH = gsl_matrix_complex_calloc (Nr, Nt);   //the physical channel matrix
-    gsl_matrix_complex *pH_tmp=gsl_matrix_complex_calloc(Nr, Nt); //the temporary channel matrix
-    gsl_matrix_complex *pHest = gsl_matrix_complex_calloc (Nr, Nt);   //the estimated channel matrix (with error)
-    gsl_matrix_complex *pRr = gsl_matrix_complex_calloc (Nr, Nr);  //receive spatial correlation matrix
-    gsl_matrix_complex *pRt = gsl_matrix_complex_calloc (Nt, Nt);  //transmit spatial correlation matrix
-    gsl_vector_complex *pnoise = gsl_vector_complex_calloc (Nr);  //AWGN vector
-    gsl_vector_complex *preceived = gsl_vector_complex_calloc (Nr);  //the received signal vector
-    gsl_vector_complex *psymOut=gsl_vector_complex_calloc(Nt); //the output of the detectors
-    int *ErrorIndex_V=(int*)calloc(1, sizeof(int)*Nt);    //the indexes of the erroneous symbol
+    gsl_vector_ulong *pgraydata  =  gsl_vector_ulong_calloc (M); //gray code book
+    gsl_vector_complex *pSymConstell  =  gsl_vector_complex_calloc (M); //symbol constellation alphabet
+    gsl_vector_ulong *pdata  =  gsl_vector_ulong_calloc (Nt); //the indexes of transmitted data
+    gsl_vector_ulong *pgrayInput  =  gsl_vector_ulong_calloc (Nt);// the gray code of the transmitted data
+    gsl_vector_complex *ptransmitted  =  gsl_vector_complex_calloc (Nt); //the transmitted symbol vector
+    gsl_matrix_complex *pH  =  gsl_matrix_complex_calloc (Nr, Nt);   //the physical channel matrix
+    gsl_matrix_complex *pH_tmp = gsl_matrix_complex_calloc(Nr, Nt); //the temporary channel matrix
+    gsl_matrix_complex *pHest  =  gsl_matrix_complex_calloc (Nr, Nt);   //the estimated channel matrix (with error)
+    gsl_matrix_complex *pRr  =  gsl_matrix_complex_calloc (Nr, Nr);  //receive spatial correlation matrix
+    gsl_matrix_complex *pRt  =  gsl_matrix_complex_calloc (Nt, Nt);  //transmit spatial correlation matrix
+    gsl_vector_complex *pnoise  =  gsl_vector_complex_calloc (Nr);  //AWGN vector
+    gsl_vector_complex *preceived  =  gsl_vector_complex_calloc (Nr);  //the received signal vector
+    gsl_vector_complex *psymOut = gsl_vector_complex_calloc(Nt); //the output of the detectors
+    int *ErrorIndex_V = (int*)calloc(1, sizeof(int)*Nt);    //the indexes of the erroneous symbol
     gsl_vector_ulong *pgrayOut;   //output gray code for erroneous symbols
     gsl_rng *pr;    //random number generator
-	int seed = time (NULL);
+	int seed  =  time (NULL);
 	const gsl_rng_type *pT;
-	pT = gsl_rng_default;
-	pr = gsl_rng_alloc (pT);
+	pT  =  gsl_rng_default;
+	pr  =  gsl_rng_alloc (pT);
     gsl_rng_set (pr,seed);
     gsl_complex alpha, beta;   //auxiliary complex numbers
     GSL_SET_COMPLEX(&alpha, 1,0);
     GSL_SET_COMPLEX(&beta, 0, 0);
     int frameError, symError, bitError;  //accumulated frame errors, symbol errors and bit errors in one SNR point
     int *frameError_sub, *symError_sub, *bitError_sub; //frame errors, symbol errors and bit errors in one channel realization
-    frameError_sub=(int*)calloc(1, sizeof(int));
-    symError_sub=(int*)calloc(1, sizeof(int));
-    bitError_sub=(int*)calloc(1, sizeof(int));
+    frameError_sub = (int*)calloc(1, sizeof(int));
+    symError_sub = (int*)calloc(1, sizeof(int));
+    bitError_sub = (int*)calloc(1, sizeof(int));
     double  noiseV, snr, sigmaerr;
     double FER, SER, BER;   //frame error rate, symbol error rate and bit error rate
-    int Realizations=0;   //the number of channel realizations
-    SNR_tmp=Start_SNR;
+    int Realizations = 0;   //the number of channel realizations
+    SNR_tmp = Start_SNR;
     //generate gray code book
     grayencoder (pgraydata);
 #if defined(DEBUG)
     printf("the gray data are\n");
-    for (count=0;count<M;count++){
+    for (count = 0; count < M; count++){
     	printf("%d, ", gsl_vector_ulong_get(pgraydata, count));
     }
     printf("\n");
@@ -302,7 +302,7 @@ fprintf(pfile, "\n");
     symbolconstellation(pSymConstell, pav);
 #if  defined(DEBUG)
     printf("the symbol constellation are:\n");
-    for (count=0;count<M;count++){
+    for (count = 0;count < M; count++){
     	printf("%f+i%f, ", gsl_vector_complex_get(pSymConstell, count).dat[0],
     			gsl_vector_complex_get(pSymConstell, count).dat[1]);
     }
@@ -319,29 +319,29 @@ fprintf(pfile, "\n");
 /**
  * Monte-Carlo Simulation process
  */
-    SNR_tmp=Start_SNR;
-    while (SNR_tmp<=End_SNR){
-    	frameError=0;
-    	symError=0;
-    	bitError=0;
-    	FER=0;
-    	SER=0;
-    	BER=0;
-    	Realizations=0;
-    	pfile=fopen(fileName, "a");
-		snr=pow(10,((double)SNR_tmp/(double)10)); //SNR in decimal
-		noiseV=(double)1/snr;     //noise variance
+    SNR_tmp = Start_SNR;
+    while (SNR_tmp <= End_SNR){
+    	frameError = 0;
+    	symError = 0;
+    	bitError = 0;
+    	FER = 0;
+    	SER = 0;
+    	BER = 0;
+    	Realizations = 0;
+    	pfile = fopen(fileName, "a");
+		snr = pow(10,((double)SNR_tmp/(double)10)); //SNR in decimal
+		noiseV = (double)1/snr;     //noise variance
 #if defined(MMSEHYB)
-		int hybridLabel=0;  //set the counter that records the number of K-SENIA-IU aided MMSE used in the hybrid MMSE detector
+		int hybridLabel = 0;  //set the counter that records the number of K-SENIA-IU aided MMSE used in the hybrid MMSE detector
 #endif
-    	start=clock();
-    	while (frameError<minFrameErrors||Realizations<minChannelRealizations){
+    	start = clock();
+    	while (frameError < minFrameErrors || Realizations < minChannelRealizations){
     		//generate the random index of the data to be transmitted
     		data_generator(pdata, pr, M);
 #if defined(DEBUG)
     		printf("Test of pdata\n");
 
-    		for ( count=0;count<Nt; count++){
+    		for ( count = 0;count < Nt; count++){
     			printf("%u, ", gsl_vector_ulong_get(pdata, count));
     		}
     		printf("\n");
@@ -379,7 +379,7 @@ fprintf(pfile, "\n");
 #endif
 //hybrid linear detector
 #elif defined(MMSEHYB)
-  hybridLabel+=MMSE_hybrid(preceived, pH, snr/(double)Nt, pav, M, k, OM, psymOut);
+  hybridLabel += MMSE_hybrid(preceived, pH, snr/(double)Nt, pav, M, k, OM, psymOut);
 //MMSE-SIC with different ordering strategies
 #elif defined(MMSESIC)||defined(MMSEVBLASTSIC)||defined(MMSEIOSIC)
   MMSE_SIC_ordering(preceived, pH, snr/(double)Nt, pav, M, psymOut);
@@ -389,17 +389,17 @@ fprintf(pfile, "\n");
 #endif
     		symErrorCheck(ptransmitted, psymOut, ErrorIndex_V, symError_sub, frameError_sub);   //check symbol and frame errors
     		Realizations++;
-    		if (*symError_sub==0){
+    		if (*symError_sub == 0){
     			continue;
     		}
-    		int *ErrorIndex=(int*)calloc(1, sizeof(int)*(*symError_sub));
-    		for (count=0;count<(*symError_sub); count++){
-    			ErrorIndex[count]=ErrorIndex_V[count];
+    		int *ErrorIndex = (int*)calloc(1, sizeof(int)*(*symError_sub));
+    		for (count = 0; count < (*symError_sub); count++){
+    			ErrorIndex[count] = ErrorIndex_V[count];
     		}
-    		pgrayOut=gsl_vector_ulong_calloc(*symError_sub);
+    		pgrayOut = gsl_vector_ulong_calloc(*symError_sub);
 #if defined(DEBUG)
     		printf("the indexes of the erroneous symbols are\n");
-    		for(count=0;count<(pgrayOut->size);count++){
+    		for(count = 0; count < (pgrayOut->size); count++){
     			printf("%d, ", ErrorIndex[count]);
     		}
     		printf("\n");
@@ -408,29 +408,29 @@ fprintf(pfile, "\n");
     		demodulator(psymOut, pSymConstell, pgraydata, ErrorIndex,  pgrayOut);   //decode the estimated symbol vector into gray code
 #if defined(DEBUG)
     		printf("the output gray codes are\n");
-    		for(count=0;count<(pgrayOut->size);count++){
+    		for(count = 0; count < (pgrayOut->size); count++){
     			printf("%d, ", gsl_vector_ulong_get(pgrayOut, count));
     		}
     		printf("\n");
 
 #endif
     		binaryerrors (pgrayOut, ErrorIndex, pgrayInput,  M,  bitError_sub); //count the number of bit errors in this channel realization
-    		symError+=*symError_sub;
-    		frameError+=*frameError_sub;
-    		bitError+=*bitError_sub;
+    		symError += *symError_sub;
+    		frameError += *frameError_sub;
+    		bitError += *bitError_sub;
     		free(ErrorIndex);
     		gsl_vector_ulong_free(pgrayOut);
 
     	}
-        end=clock();
-        FER=(double)frameError/((double)(Realizations));  //calculate frame error rate
-        SER=((double)symError/((double)Nt))/((double)(Realizations)); //calculate symbol error rate
-        BER=((double)bitError/((double)Nt*(double)ceil(log2(M))))/((double)(Realizations)); //calculate bit error rate
+        end = clock();
+        FER = (double)frameError/((double)(Realizations));  //calculate frame error rate
+        SER = ((double)symError/((double)Nt))/((double)(Realizations)); //calculate symbol error rate
+        BER = ((double)bitError/((double)Nt*(double)ceil(log2(M))))/((double)(Realizations)); //calculate bit error rate
 #if defined(MMSEHYB)
-    	printf("SNR=%d, Realization=%d, FER=%g, SER=%g, BER=%g, Percentage of AMI=%g, OperationTime=%g s\n", SNR_tmp, Realizations, FER, SER, BER,
+    	printf("SNR = %d, Realization = %d, FER = %g, SER = %g, BER = %g, Percentage of AMI = %g, OperationTime = %g s\n", SNR_tmp, Realizations, FER, SER, BER,
     			(double)hybridLabel/(double)Realizations, (end-start)/(double)CLOCKS_PER_SEC);
 #else
-    	printf("SNR=%d, Realization=%d, FER=%g, SER=%g, BER=%g, OperationTime=%g s\n", SNR_tmp, Realizations, FER, SER, BER,
+    	printf("SNR = %d, Realization = %d, FER = %g, SER = %g, BER = %g, OperationTime = %g s\n", SNR_tmp, Realizations, FER, SER, BER,
     			(end-start)/(double)CLOCKS_PER_SEC);
 #endif
 #if defined(MMSEHYB)
@@ -444,10 +444,10 @@ fprintf(pfile, "\n");
            (end-start)/(double)CLOCKS_PER_SEC);
 #endif
     	fclose(pfile);
-    	SNR_tmp+=Step_SNR;
+    	SNR_tmp+ = Step_SNR;
 
     }
-    pfile=fopen(fileName, "a");
+    pfile = fopen(fileName, "a");
     fprintf(pfile, "*************************************\n");
     fprintf(pfile, "The whole program ends successfully!!\n");
     fprintf(pfile, "==============================================================================\n");

@@ -21,12 +21,12 @@ void selectiveListDetection(gsl_vector_complex *preceived, gsl_matrix_complex *p
 void selectiveListDetection(gsl_vector_complex *preceived, gsl_matrix_complex *pH,
 		double snr, double pav, int N, int k, int L, gsl_vector_complex *pSymConstell,
 		gsl_vector_complex *psymOut){
-	const int Nr=pH->size1;
-	const int Nt=pH->size2;
-	const int M=pSymConstell->size;
-	const int listSize=pow(M, N);   //the number of vector candidates in the list
+	const int Nr = pH->size1;
+	const int Nt = pH->size2;
+	const int M = pSymConstell->size;
+	const int listSize = pow(M, N);   //the number of vector candidates in the list
 	gsl_rng *pr;    //random number generator
-	int seed = time (NULL);
+	int seed  =  time (NULL);
 	const gsl_rng_type *pT;
 	pT = gsl_rng_default;
 	pr = gsl_rng_alloc (pT);
@@ -39,20 +39,20 @@ void selectiveListDetection(gsl_vector_complex *preceived, gsl_matrix_complex *p
     gsl_vector *subList;
     gsl_vector *EuclideanV;
     struct Node *index1_head, *index2_head;
-    index1_head=create(1);
-    index2_head=create(1);
-    WInv=gsl_matrix_complex_calloc(Nt-N, Nt-N);
-    G=gsl_matrix_complex_calloc(Nt-N, Nr);
-	pH1=gsl_matrix_complex_calloc(Nr, N);
-	pH2=gsl_matrix_complex_calloc(Nr, Nt-N);
-    preceiveSubtmp=gsl_vector_complex_calloc(Nr);
-    psymOut_Sub1tmp=gsl_vector_complex_calloc(N);
-    psymOut_Sub2=gsl_vector_complex_calloc(Nt-N);
-    psymOut_Sub2tmp=gsl_vector_complex_calloc(Nt-N);
-    psymOut_Sub2_M=gsl_matrix_complex_calloc(Nt-N, listSize);
-    subList=gsl_vector_calloc(N);
-    List=gsl_matrix_calloc(N,listSize);
-    EuclideanV=gsl_vector_calloc(listSize);
+    index1_head = create(1);
+    index2_head = create(1);
+    WInv = gsl_matrix_complex_calloc(Nt-N, Nt-N);
+    G = gsl_matrix_complex_calloc(Nt-N, Nr);
+	pH1 = gsl_matrix_complex_calloc(Nr, N);
+	pH2 = gsl_matrix_complex_calloc(Nr, Nt-N);
+    preceiveSubtmp = gsl_vector_complex_calloc(Nr);
+    psymOut_Sub1tmp = gsl_vector_complex_calloc(N);
+    psymOut_Sub2 = gsl_vector_complex_calloc(Nt-N);
+    psymOut_Sub2tmp = gsl_vector_complex_calloc(Nt-N);
+    psymOut_Sub2_M = gsl_matrix_complex_calloc(Nt-N, listSize);
+    subList = gsl_vector_calloc(N);
+    List = gsl_matrix_calloc(N,listSize);
+    EuclideanV = gsl_vector_calloc(listSize);
     double Euclidean;
     int count, count1;
     gsl_complex alpha, beta1, beta2, betasnr;
@@ -71,10 +71,10 @@ void selectiveListDetection(gsl_vector_complex *preceived, gsl_matrix_complex *p
 #endif
 
 //    gsl_blas_zgemm(CblasNoTrans, CblasConjTrans, alpha, WInv, pH2, beta1, G);
-    for (count=0;count<listSize; count++){
+    for (count = 0;count < listSize; count++){
     	//construct sub symbol vector s1
     	gsl_matrix_get_col(subList, List, count);
-    	for (count1=0;count1<N;count1++){
+    	for (count1 = 0; count1 < N; count1++){
     		gsl_vector_complex_set(psymOut_Sub1tmp, count1,
     				gsl_vector_complex_get(pSymConstell,
     						gsl_vector_get(subList, count1)));
@@ -86,14 +86,14 @@ void selectiveListDetection(gsl_vector_complex *preceived, gsl_matrix_complex *p
     	MMSE_SIC_ordering_fast(preceiveSubtmp, pH2, WInv, snr, pav, M, psymOut_Sub2tmp);
     	gsl_matrix_complex_set_col(psymOut_Sub2_M, count, psymOut_Sub2tmp);
     	gsl_blas_zgemv(CblasNoTrans, beta2, pH2, psymOut_Sub2tmp, alpha, preceiveSubtmp);
-    	Euclidean=gsl_blas_dznrm2(preceiveSubtmp);
+    	Euclidean = gsl_blas_dznrm2(preceiveSubtmp);
     	gsl_vector_set(EuclideanV, count, Euclidean);
 
     }
     //reconstruct psymOut
-    m=gsl_vector_min_index(EuclideanV);
+    m = gsl_vector_min_index(EuclideanV);
    	gsl_matrix_get_col(subList, List, m);
-    	for (count1=0;count1<N;count1++){  //construct sub symbol vector
+    	for (count1 = 0; count1 < N; count1++){  //construct sub symbol vector
     		gsl_vector_complex_set(psymOut_Sub1tmp, count1,
     				gsl_vector_complex_get(pSymConstell,
     						gsl_vector_get(subList, count1)));
@@ -101,13 +101,13 @@ void selectiveListDetection(gsl_vector_complex *preceived, gsl_matrix_complex *p
 
     	gsl_matrix_complex_get_col(psymOut_Sub2, psymOut_Sub2_M, m);
 
-    	for (count1=0;count1<N;count1++){
-         index=get(0, index1_head);
+    	for (count1 = 0; count1 < N; count1++){
+         index = get(0, index1_head);
          gsl_vector_complex_set(psymOut, index,
         		 gsl_vector_complex_get(psymOut_Sub1tmp,count1));
     	}
-    	for (count1=0;count1<(Nt-N);count1++){
-    		index=get(0, index2_head);
+    	for (count1 = 0; count1 < (Nt-N); count1++){
+    		index = get(0, index2_head);
             gsl_vector_complex_set(psymOut, index,
            		 gsl_vector_complex_get(psymOut_Sub2,count1));
     	}

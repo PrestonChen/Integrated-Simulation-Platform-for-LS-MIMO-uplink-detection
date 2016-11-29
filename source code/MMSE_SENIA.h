@@ -14,18 +14,18 @@ void MMSE_SENIA(gsl_vector_complex *preceived, gsl_matrix_complex *pH,
 		double snr, double pav, int M, int k, gsl_vector_complex *psymOut){
 	gsl_complex alpha, beta1,beta2;
 		GSL_SET_COMPLEX(&alpha, 1,0);
-		GSL_SET_COMPLEX(&beta1, 1/snr, 0);
+		GSL_SET_COMPLEX(&beta1, 1 / snr, 0);
 		GSL_SET_COMPLEX(&beta2, 0, 0);
-		int Nr=pH->size1;
-		int Nt=pH->size2;
+		int Nr = pH->size1;
+		int Nt = pH->size2;
 		gsl_matrix_complex *G_pre, *G_preInv, *G, *G_aided;
-		gsl_permutation *p=gsl_permutation_calloc(Nt);
-		int *signum=(int*)calloc(1, sizeof(int));
-		*signum=1;
-		G_pre=gsl_matrix_complex_calloc(Nt, Nt);
-		G_preInv=gsl_matrix_complex_calloc(Nt, Nt);
-		G=gsl_matrix_complex_calloc(Nt,Nr);
-		G_aided=gsl_matrix_complex_calloc(Nt,Nt);
+		gsl_permutation *p = gsl_permutation_calloc(Nt);
+		int *signum = (int*)calloc(1, sizeof(int));
+		*signum = 1;
+		G_pre = gsl_matrix_complex_calloc(Nt, Nt);
+		G_preInv = gsl_matrix_complex_calloc(Nt, Nt);
+		G = gsl_matrix_complex_calloc(Nt,Nr);
+		G_aided = gsl_matrix_complex_calloc(Nt,Nt);
 		gsl_matrix_complex_set_identity(G_pre);
 		gsl_blas_zgemm(CblasConjTrans, CblasNoTrans, alpha, pH, pH, beta1, G_pre);
 		SENIA(G_pre, k, G_preInv, G_aided);
