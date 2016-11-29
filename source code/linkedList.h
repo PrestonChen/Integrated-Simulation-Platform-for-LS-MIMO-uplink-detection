@@ -27,15 +27,14 @@ struct Node *create(int Nt){   //create linked list
           head = current;
           tail = current;
 		}
-		if(Nt =  = 1){
-			break;
+		if(Nt == 1){
+		  break;
 		}
 	    tail->next = current;
 	    tail = current;
 	}
 	return (head);
 }
-
 
 struct Node *split(struct Node *index2_head, gsl_combination *subset){
 	//split the complete linked list index1 into two sub linked list index1 and index2
@@ -44,8 +43,8 @@ struct Node *split(struct Node *index2_head, gsl_combination *subset){
 	current = index2_head;
 	int count = 0;
 	int N = gsl_combination_k(subset);
-	while(current->next! = NULL&&count<N){
-		if(current->next->index =  = gsl_combination_get(subset, count)){
+	while(current->next != NULL && count < N){
+		if(current->next->index == gsl_combination_get(subset, count)){
 			Nulling = current->next;
 			current->next = (Nulling->next);
 			Nulling->next = NULL;
@@ -62,7 +61,6 @@ struct Node *split(struct Node *index2_head, gsl_combination *subset){
 		}
 	}
 	return (index1_head);
-
 }
 
 
@@ -77,7 +75,7 @@ struct Node *splitArray(struct Node *index2_head, int *subset, int N){
 			Nulling = current->next;
 			current->next = (Nulling->next);
 			Nulling->next = NULL;
-			if(count =  = 0){
+			if(count == 0){
 				index1_head = Nulling;
 				index1_tail = Nulling;
 			}else{
@@ -90,7 +88,6 @@ struct Node *splitArray(struct Node *index2_head, int *subset, int N){
 		}
 	}
 	return (index1_head);
-
 }
 
 int get(int k, struct Node *head){   // get the index in the kth struct Node
@@ -98,13 +95,6 @@ int get(int k, struct Node *head){   // get the index in the kth struct Node
 	int count = 0;
 	struct Node *current = head;
 	struct Node *Nulling = NULL;
-//	if(k =  = 0){
-//		index = current->index;
-//		head = (current->next);
-//		free(current);
-//		current = NULL;
-//		return index;
-//	}
 	while(count < k){
 		current = current->next;
 		count++;
